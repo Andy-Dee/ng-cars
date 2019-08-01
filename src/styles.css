@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+ul li {
+    list-style-type: none;
+}
+
+a,
+a:hover {
+    transition: color .3s, background-color .3s;
+    text-decoration: none;
+}

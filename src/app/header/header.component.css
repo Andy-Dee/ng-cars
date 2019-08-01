@@ -1,0 +1,35 @@
+.cabinet-tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 0;
+}
+
+.cabinet-tabs li {
+    height: 50px;
+    text-align: center;
+    position: relative;
+    flex: 1;
+}
+
+.cabinet-tabs li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+    color: black;
+    border: 1px solid #d2dee4;
+    background-color: #f8fafc;
+}
+
+.cabinet-tabs li.active a,
+.cabinet-tabs li a:hover {
+    color: white;
+    background-color: #1565c0;
+    border-color: #1565c0;
+}
+
+.cabinet-tabs li a p {
+    margin-bottom: 0;
+}
