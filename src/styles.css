@@ -58,6 +58,28 @@ input[type="checkbox"]:checked+label span {
     border: 1px solid #35373a;
 }
 
+.table-borderless {
+    border: 1px solid #d2dee4;
+}
+
+.table-borderless thead {
+    background: transparent;
+    border: none;
+}
+
+.table-borderless thead tr th {
+    color: #616161;
+    font-size: 13px;
+}
+
+.table-borderless td {
+    font-size: 15px;
+}
+
+.table-borderless td:nth-child(3) {
+    text-align: right;
+}
+
 .table tbody tr {
     border-top: none;
 }

@@ -3,12 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Product } from '../shared/product.model';
+import { Balance } from '../shared/balance.model';
 
 @Injectable()
 
 export class DataService {
     baseUrl: string = 'assets/data/';
     orders: Product[] = [];
+    balances: Balance[] = [];
 
     constructor( private http: HttpClient ) {}
 
@@ -24,7 +26,16 @@ export class DataService {
                 map(res => res),
                 catchError(this.handleErrorObservable)
             )
-    }    
+    }  
+    
+    fetchBalances() : Observable<any> {
+        return this.http
+            .get<any>(this.baseUrl + 'balance.json')
+            .pipe(
+                map(res => res),
+                catchError(this.handleErrorObservable)
+            )
+    }
 
     
 }

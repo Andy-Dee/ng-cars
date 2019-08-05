@@ -11,7 +11,7 @@ import { BalanceComponent } from './balance/balance.component';
 import { CarsComponent } from './cars/cars.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { SaleComponent } from './sale/sale.component';
-import { PersonalComponent } from './personal/personal.component';
+import { ProfileComponent } from './profile/profile.component';
 import { DataService } from './core/data.service';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -25,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     CarsComponent,
     AccountsComponent,
     SaleComponent,
-    PersonalComponent
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

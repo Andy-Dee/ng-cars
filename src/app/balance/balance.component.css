@@ -1,0 +1,25 @@
+.balance-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.balance-rest {
+    height: 30px;
+    width: 170px;
+    background: #edfaee;
+    border: 1px solid #7ee07d;
+    border-radius: 2px;
+    color: #000000;
+    padding: 5px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.balance-completed {
+    color: #000000;
+}
+
+.balance-declined {
+    color: #8b8b8b;
+}

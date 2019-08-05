@@ -17,7 +17,6 @@ export class OrdersComponent implements OnInit {
   errorMessage: string;
   ordersChanged = new Subject<Product[]>();
   ordersChecked: any[] = [];
-  getOrder: any;
 
   constructor(
     private dataServive: DataService,

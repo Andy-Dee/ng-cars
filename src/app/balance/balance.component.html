@@ -1,1 +1,42 @@
-<p>balance works!</p>
+<div class="balance-header mb-3">
+    <h2 class="tab-title mb-0">Your balance: 0$</h2>
+    <button class="btn btn-success">Add funds</button>
+</div>
+
+<table class="table table-borderless">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Operation</th>
+            <th>Summ</th>
+            <th>Rest</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let balance of balances; let i = index">
+            <th> {{ balance.date }} </th>
+            <th>
+                {{ balance.operation }}
+            </th>
+            <th>
+                <div class="balance-plus">
+                    {{ balance.summ | currency }}
+                </div>
+            </th>
+            <th>
+                <div class="balance-rest">
+                    {{ balance.rest }}
+                </div>
+            </th>
+            <th>
+                <div *ngIf="balance.status === 'Completed'" class="balance-completed">
+                    {{ balance.status }}
+                </div>
+                <div *ngIf="balance.status === 'Declined'" class="balance-declined">
+                    {{ balance.status }}
+                </div>
+            </th>
+        </tr>
+    </tbody>
+</table>
