@@ -1,1 +1,71 @@
-<p>orders works!</p>
+<h2 class="tab-title mb-3">My orders</h2>
+<ul class="orders-filter d-flex mb-3">
+    <li class="pr-3"><a href="#">All</a> (<span>5</span>)</li>
+    <li class="pr-3"><a href="#">Pending</a> (<span>1</span>)</li>
+    <li class="pr-3"><a href="#">Recieved</a> (<span>3</span>)</li>
+    <li class="pr-3"><a href="#">Declined</a> (<span>1</span>)</li>
+</ul>
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Code</th>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Spare</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total</th>
+            <th scope="col">Guaranty</th>
+            <th scope="col">Invoice</th>
+            <th scope="col">Remove</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let product of products; let i = index">
+        <tr>
+            <td> {{ product.orderNumber }} </td>
+            <td>
+                <input (input)="checkedOrder(product.id, $event.target.checked)" id="{{ product.code }}" type="checkbox" name="{{ product.code }}" value="{{ product.code }}">
+                <label class="label-checkbox" for="{{ product.code }}">
+                    <span></span>
+                    {{ product.code }}
+                </label>
+            </td>
+            <td> {{ product.name }} </td>
+            <td>
+                <div *ngIf="product.status === 'Pending'" class="order-state order-state-wait">
+                    <p>{{ product.status }}</p>
+                </div>
+                <div *ngIf="product.status === 'Sent'" class="order-state order-state-sent">
+                    <p>{{ product.status }}</p>
+                </div>
+                <div *ngIf="product.status === 'Agreement'" class="order-state order-state-agree">
+                    <p>{{ product.status }}</p>
+                </div>
+                <div *ngIf="product.status === 'Declined'" class="order-state order-state-decline">
+                    <p>{{ product.status }}</p>
+                </div>
+            </td>
+            <td>
+                <div *ngIf="product.condition === 'New'" class="label label-new">{{ product.condition }}</div>
+                <div *ngIf="product.condition === 'Used 10%'" class="label label-stock-10">{{ product.condition }}</div>
+                <div *ngIf="product.condition === 'Used 50%'" class="label label-stock-50">{{ product.condition }}</div>
+            </td>
+            <td> {{ product.price | currency }} </td>
+            <td> {{ product.quantity }} </td>
+            <td> {{ product.total | currency }} </td>
+            <td>
+                <div *ngIf="product.guaranty === true" class="guaranty-true"></div>
+                <div *ngIf="product.guaranty === false" class="guaranty-false"></div>
+            </td>
+            <td>
+                <div *ngIf="product.invoice === true" class="invoice"></div>
+            </td>
+            <td>
+                <a (click)="deleteOrder(i)" class="delete">&#10006;</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- <hr> -->
+<!-- <div class="btn btn-success" (click)="deleteOrdersChecked()">Delete selected</div> -->

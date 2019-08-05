@@ -1,5 +1,6 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,8 @@ import { CarsComponent } from './cars/cars.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { SaleComponent } from './sale/sale.component';
 import { PersonalComponent } from './personal/personal.component';
+import { DataService } from './core/data.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,10 +29,13 @@ import { PersonalComponent } from './personal/personal.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
-    Title
+    Title,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

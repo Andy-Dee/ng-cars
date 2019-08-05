@@ -1,5 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+.container {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+p {
+    font-size: 15px;
+}
+
+ul {
+    padding-left: 0;
+}
+
 ul li {
     list-style-type: none;
 }
@@ -8,4 +21,181 @@ a,
 a:hover {
     transition: color .3s, background-color .3s;
     text-decoration: none;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]+label {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+input[type="checkbox"]+label span {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url('../src/assets/img/checkbox-sprite.png') left top no-repeat;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+input[type="checkbox"]:checked+label span {
+    background: url('../src/assets/img/checkbox-sprite.png') -18px top no-repeat;
+}
+
+.table {
+    border: 1px solid #d2dee4;
+}
+
+.table thead {
+    background: #35373a;
+    height: 30px;
+    border: 1px solid #35373a;
+}
+
+.table tbody tr {
+    border-top: none;
+}
+
+.table tr th {
+    font-weight: normal;
+    text-align: center;
+}
+
+.table tr td {
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background: #f9f9f9;
+}
+
+.table tr th,
+.table tr td {
+    vertical-align: middle;
+    font-size: 13px;
+    text-align: center;
+}
+
+.table tr td:nth-child(3) {
+    text-align: left;
+}
+
+.table tr td:nth-child(6),
+.table tr td:nth-child(8) {
+    text-align: right;
+}
+
+.order-state {
+    height: 30px;
+    border-radius: 2px;
+    text-align: center;
+    padding: 5px;
+}
+
+.order-state p {
+    border-bottom: 1px dotted #636363;
+    font-size: 13px;
+    display: inline;
+}
+
+.order-state-sent p {
+    border-bottom: 1px dotted #ffffff;
+}
+
+.order-state-agree {
+    background: #fbb342;
+}
+
+.order-state-wait {
+    background: #fbc02d;
+}
+
+.order-state-sent {
+    background: #546e7a;
+    color: white;
+}
+
+.order-state-decline {
+    background: #ef5350;
+}
+
+.label {
+    height: 20px;
+    padding: 1px 5px;
+    font-size: 11px;
+    border-radius: 2px;
+    position: relative;
+}
+
+.label-new {
+    background: #ffffff;
+    border: 1px solid #4caf50;
+    color: #4caf50;
+}
+
+.label-stock-10 {
+    background: #f9a825;
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.label-stock-50 {
+    background: #ef5350;
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.label-stock-50:after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -20px;
+    content: '!';
+    font-size: 8px;
+    font-weight: 700;
+    color: #ef5350;
+    padding: 1px 6px;
+    border: 1px solid #ef5350;
+    border-radius: 50%;
+}
+
+.guaranty-true {
+    background: url('../src/assets/img/guaranty-true.png') center no-repeat;
+    width: 19px;
+    height: 19px;
+    margin: 0 auto;
+}
+
+.guaranty-false {
+    background: url('../src/assets/img/guaranty-false.png') center no-repeat;
+    width: 19px;
+    height: 19px;
+    margin: 0 auto;
+}
+
+.invoice {
+    background: url('../src/assets/img/invoice.png') center no-repeat;
+    width: 14px;
+    height: 19px;
+    margin: 0 auto;
+}
+
+a.delete {
+    display: block;
+    cursor: pointer;
+    padding: 2px;
+    background: #828282;
+    color: #ffffff !important;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 11px;
+    margin: 0 auto;
 }

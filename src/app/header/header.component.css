@@ -2,7 +2,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 0;
 }
 
 .cabinet-tabs li {
@@ -28,6 +27,7 @@
     color: white;
     background-color: #1565c0;
     border-color: #1565c0;
+    text-decoration: none;
 }
 
 .cabinet-tabs li a p {
