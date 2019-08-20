@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Account } from '../shared/accounts.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { DataService } from '../core/data.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class AccountsComponent implements OnInit {
   account: Account;
   errorMessage: string;
   observableAccount: Observable<Account[]>;
+  accountsChanged = new Subject<Account[]>();
 
   constructor(private dataService: DataService) { }
 
@@ -22,6 +23,12 @@ export class AccountsComponent implements OnInit {
       accounts => this.accounts = accounts,
       error => this.errorMessage = error
     )
+  }
+
+  deleteAccount(index: number) {
+    let accounts = this.accounts;  
+    this.accountsChanged.next(accounts.splice(index, 1));
+    console.log(index);
   }
 
 }

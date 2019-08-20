@@ -45,6 +45,5 @@ export class DataService {
                 catchError(this.handleErrorObservable)
             )
     }
-
     
 }
