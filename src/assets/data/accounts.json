@@ -1,0 +1,33 @@
+[{
+        "id": 1,
+        "date": "04.11.2015, 04.24PM",
+        "number": 13124,
+        "purpose": "Payment order #78654",
+        "summ": 347,
+        "status": "Pending"
+    },
+    {
+        "id": 2,
+        "date": "05.09.2016, 04.24PM",
+        "number": 14173,
+        "purpose": "Refill",
+        "summ": 547,
+        "status": "Paid"
+    },
+    {
+        "id": 3,
+        "date": "11.01.2014, 07.24AM",
+        "number": 55845,
+        "purpose": "Payment order #78654",
+        "summ": 347,
+        "status": "Declined"
+    },
+    {
+        "id": 4,
+        "date": "04.10.2012, 05.24PM",
+        "number": 37580,
+        "purpose": "Payment order #78654",
+        "summ": 1347,
+        "status": "Paid"
+    }
+]

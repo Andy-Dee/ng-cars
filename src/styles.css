@@ -19,8 +19,22 @@ ul li {
 
 a,
 a:hover {
-    transition: color .3s, background-color .3s;
+    transition: color .3s, background-color .3s, opacity .3s;
     text-decoration: none;
+}
+
+.btn.button-green {
+    background-color: #4caf50;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    padding: 2px 25px;
+    margin-top: 10px;
+}
+
+.btn.button-green:hover {
+    background-color: #48c54d;
+    color: #ffffff;
 }
 
 input[type="checkbox"] {
@@ -58,28 +72,6 @@ input[type="checkbox"]:checked+label span {
     border: 1px solid #35373a;
 }
 
-.table-borderless {
-    border: 1px solid #d2dee4;
-}
-
-.table-borderless thead {
-    background: transparent;
-    border: none;
-}
-
-.table-borderless thead tr th {
-    color: #616161;
-    font-size: 13px;
-}
-
-.table-borderless td {
-    font-size: 15px;
-}
-
-.table-borderless td:nth-child(3) {
-    text-align: right;
-}
-
 .table tbody tr {
     border-top: none;
 }
@@ -112,6 +104,25 @@ input[type="checkbox"]:checked+label span {
 .table tr td:nth-child(6),
 .table tr td:nth-child(8) {
     text-align: right;
+}
+
+.table-borderless {
+    border: 1px solid #d2dee4;
+}
+
+.table-borderless thead {
+    background: transparent;
+    border: none;
+}
+
+.table-borderless thead tr th {
+    color: #616161;
+    font-size: 13px;
+}
+
+.table-borderless tr td {
+    font-size: 15px;
+    border: 0;
 }
 
 .order-state {
@@ -209,15 +220,29 @@ input[type="checkbox"]:checked+label span {
     margin: 0 auto;
 }
 
+a.print-icon {
+    display: inline-block;
+    cursor: pointer;
+    background: url('../src/assets/img/print.png') center no-repeat;
+    width: 16px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+a.print-icon:hover {
+    opacity: 0.7;
+}
+
 a.delete {
     display: block;
     cursor: pointer;
-    padding: 2px;
     background: #828282;
     color: #ffffff !important;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    font-size: 11px;
+    font-size: 10px;
     margin: 0 auto;
+    text-align: center;
+    vertical-align: middle;
 }

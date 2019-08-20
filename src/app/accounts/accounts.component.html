@@ -1,1 +1,50 @@
-<h2 class="tab-title mb-3">My accounts</h2>
+<h2 class="tab-title mb-3">
+    Your accounts</h2>
+
+<table class="table table-borderless table-accounts">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Number</th>
+            <th>Purpose</th>
+            <th>Summ</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let account of accounts; let i = index" [ngClass]="{'declined': account.status === 'Declined'}">
+            <td> {{ account.date }} </td>
+            <td> {{ account.number }} </td>
+            <td>
+                <div *ngIf="account.status === 'Paid'">
+                    <a class="print-icon"></a>
+                    {{ account.purpose }}
+                </div>
+                <div *ngIf="account.status === 'Pending'">
+                    <a class="print-icon"></a>
+                    {{ account.purpose }}
+                </div>
+                <div *ngIf="account.status === 'Declined'" class="declined-purpose">
+                    {{ account.purpose }}
+                </div>
+            </td>
+            <td> {{ account.summ | currency }} </td>
+            <td>
+                <span class="status status-pending" *ngIf="account.status === 'Pending'">
+                    {{ account.status }}
+                </span>
+                <button class="btn button-green status-paid-btn" *ngIf="account.status === 'Pending'">Pay</button>
+                <span class="status status-paid" *ngIf="account.status === 'Paid'">
+                    {{ account.status }}
+                </span>
+                <span class="status status-declined" *ngIf="account.status === 'Declined'">
+                    {{ account.status }}
+                </span>
+            </td>
+            <td>
+                <a (click)="deleteOrder(i)" class="delete">&#10006;</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,8 +1,8 @@
-export interface Balance {
+export interface Account {
     id: number;
     date: string;
-    operation: string;
+    number: number;
+    purpose: string;
     summ: number;
-    rest: string;
     status: string;
 }

@@ -23,3 +23,7 @@
 .balance-declined {
     color: #8b8b8b;
 }
+
+.table-balance td:nth-child(3) {
+    text-align: right;
+}

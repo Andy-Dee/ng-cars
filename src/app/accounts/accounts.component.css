@@ -1,0 +1,30 @@
+.declined {
+    opacity: 0.5;
+}
+
+.declined-purpose {
+    padding-left: 25px;
+}
+
+.status {
+    padding-left: 20px;
+}
+
+.status-pending {
+    color: #8b8b8b;
+    background: url('../../assets/img/status-pending.png') left center no-repeat;
+}
+
+.status-paid {
+    background: url('../../assets/img/status-paid.png') left center no-repeat;
+}
+
+.status-declined {
+    background: url('../../assets/img/status-declined.png') left center no-repeat;
+    padding-left: 30px;
+}
+
+.status-paid-btn {
+    display: block;
+    margin: 10px auto 0;
+}

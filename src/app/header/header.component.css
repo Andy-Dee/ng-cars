@@ -2,6 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-right: -1px;
 }
 
 .cabinet-tabs li {
@@ -20,6 +21,7 @@
     color: black;
     border: 1px solid #d2dee4;
     background-color: #f8fafc;
+    margin-left: -1px;
 }
 
 .cabinet-tabs li.active a,

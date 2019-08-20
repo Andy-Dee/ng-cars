@@ -37,5 +37,14 @@ export class DataService {
             )
     }
 
+    fetchAccounts() : Observable<any> {
+        return this.http
+            .get<any>(this.baseUrl + 'accounts.json')
+            .pipe(
+                map(res => res),
+                catchError(this.handleErrorObservable)
+            )
+    }
+
     
 }
