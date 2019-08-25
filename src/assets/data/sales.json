@@ -1,0 +1,31 @@
+[{
+        "id": 1,
+        "code": 1655915,
+        "photo": "/src/assets/img/spare.png",
+        "name": "Glass door rear left",
+        "model": "Lexus RX 300/330/350 /400h 2003-2009",
+        "condition": "New",
+        "summ": 856,
+        "status": "Sale"
+    },
+    {
+        "id": 2,
+        "code": 3214615,
+        "photo": "/src/assets/img/spare.png",
+        "name": "Glass door rear left",
+        "model": "BMW 650 /407h 2001-2014",
+        "condition": "Used 50%",
+        "summ": 347,
+        "status": "Sale"
+    },
+    {
+        "id": 3,
+        "code": 3587465,
+        "photo": "/src/assets/img/spare.png",
+        "name": "Rear bumper MERSEDES AVEO 07",
+        "model": "Lexus RX 300/330/350 /400h 2003-2009",
+        "condition": "Used 10%",
+        "summ": 9844,
+        "status": "Sale"
+    }
+]

@@ -45,5 +45,14 @@ export class DataService {
                 catchError(this.handleErrorObservable)
             )
     }
+
+    fetchSales() : Observable<any> {
+        return this.http
+            .get<any>(this.baseUrl + 'sales.json')
+            .pipe(
+                map(res => res),
+                catchError(this.handleErrorObservable)
+            )
+    }
     
 }

@@ -1,1 +1,38 @@
 <h2 class="tab-title mb-3">On sale</h2>
+
+<table class="table table-borderless table-sales">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Model</th>
+            <th>Spare</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let sale of sales; let i = index">
+            <td> {{ sale.code }} </td>
+            <td> {{ sale.photo }} </td>
+            <td> {{ sale.name }} </td>
+            <td> {{ sale.model }} </td>
+            <td>
+                <div *ngIf="sale.condition === 'New'" class="label label-new">{{ sale.condition }}</div>
+                <div *ngIf="sale.condition === 'Used 10%'" class="label label-stock-10">{{ sale.condition }}</div>
+                <div *ngIf="sale.condition === 'Used 50%'" class="label label-stock-50">{{ sale.condition }}</div>
+            </td>
+            <td> {{ sale.summ | currency }} </td>
+            <td>
+                <div class="sale-status">
+                    {{ sale.status }}
+                </div>
+            </td>
+            <td>
+                <a (click)="deleteSale(i)" class="delete">&#10006;</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
