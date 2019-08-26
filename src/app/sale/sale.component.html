@@ -16,7 +16,9 @@
     <tbody>
         <tr *ngFor="let sale of sales; let i = index">
             <td> {{ sale.code }} </td>
-            <td> {{ sale.photo }} </td>
+            <td class="sales-photo">
+                <img src="{{ sale.photo }}" alt="{{ sale.name }}">
+            </td>
             <td> {{ sale.name }} </td>
             <td> {{ sale.model }} </td>
             <td>
@@ -24,7 +26,16 @@
                 <div *ngIf="sale.condition === 'Used 10%'" class="label label-stock-10">{{ sale.condition }}</div>
                 <div *ngIf="sale.condition === 'Used 50%'" class="label label-stock-50">{{ sale.condition }}</div>
             </td>
-            <td> {{ sale.summ | currency }} </td>
+            <td>
+                <div class="price-td">
+                    <div>
+                        {{ sale.summ | currency }}
+                    </div>
+                    <div class="change-price">
+                        <a href="#"><img src="../../assets/img/change.png" alt="Change price"></a>
+                    </div>
+                </div>
+            </td>
             <td>
                 <div class="sale-status">
                     {{ sale.status }}
