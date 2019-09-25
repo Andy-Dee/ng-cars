@@ -9,8 +9,6 @@ import { Balance } from '../shared/balance.model';
 
 export class DataService {
     baseUrl: string = 'assets/data/';
-    orders: Product[] = [];
-    balances: Balance[] = [];
 
     constructor( private http: HttpClient ) {}
 
@@ -49,6 +47,15 @@ export class DataService {
     fetchSales() : Observable<any> {
         return this.http
             .get<any>(this.baseUrl + 'sales.json')
+            .pipe(
+                map(res => res),
+                catchError(this.handleErrorObservable)
+            )
+    }
+
+    fetchCars() : Observable<any> {
+        return this.http
+            .get<any>(this.baseUrl + 'cars.json')
             .pipe(
                 map(res => res),
                 catchError(this.handleErrorObservable)

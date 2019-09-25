@@ -1,6 +1,6 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +14,13 @@ import { SaleComponent } from './sale/sale.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DataService } from './core/data.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FilterUniqueCarsPipe } from './core/unique-cars.filter';
+import { FilterUniqueModelsPipe } from './core/unique-models.filter';
+import { FilterUniqueModificationsPipe } from './core/unique-modifications.filter';
+import { CarsService } from './core/cars.service';
+import { CarListComponent } from './cars/car-list/car-list.component';
+import { CarItemComponent } from './cars/car-list/car-item/car-item.component';
+
 
 @NgModule({
   declarations: [
@@ -25,17 +32,24 @@ import { HttpClientModule } from '@angular/common/http';
     CarsComponent,
     AccountsComponent,
     SaleComponent,
-    ProfileComponent
+    ProfileComponent,
+    FilterUniqueCarsPipe,
+    FilterUniqueModelsPipe,
+    FilterUniqueModificationsPipe,
+    CarListComponent,
+    CarItemComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     Title,
-    DataService
+    DataService,
+    CarsService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,1 +1,54 @@
 <h2 class="tab-title mb-3">My cars</h2>
+<div class="row mb-3">
+    <div class="col-xs-12 col-sm-4">
+        <a href="" data-toggle="collapse" data-target="#add-car" class="add-car-btn" aria-expanded="true">
+            <img src="../../assets/img/add-car-little.png" alt="Add car">
+        </a>
+        <div id="add-car" class="fade add-car-wrap collapse show mt-4" aria-expanded="true">
+            <form [formGroup]="addCarForm" (ngSubmit)="onSubmit(addCarForm)" novalidate>
+                <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <select name="brand" id="brand" class="form-control" (change)="getBrandValue($event)" formControlName="carBrand">
+                        <option *ngFor="let car of carsList | filterUniqueCar" [value]="car.brand">
+                            {{car.brand}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="model">Model</label>
+                    <select name="model" id="model" class="form-control" (change)="getModelValue($event)" formControlName="carModel">
+                        <option *ngFor="let car of selectedCars | filterUniqueModel" [value]="car.model">
+                            {{car.model}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modification">Modification</label>
+                    <select name="modification" id="modification" class="form-control" (change)="getModificationValue($event)" formControlName="carModification">
+                        <option *ngFor="let car of selectedModels | filterUniqueModification" [value]="car.modification">
+                            <span>{{car.modification}}</span> 
+                            <span class="{{car.id}}" hidden #carId></span>
+                            <span class="{{car.model_image_path}}" hidden #carImage></span>
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <input class="form-control" type="text" name="year" id="year" formControlName="carYear">
+                </div>
+                <div class="form-group">
+                    <label for="capacity">Engine capacity</label>
+                    <input class="form-control" type="text" name="capacity" id="capacity" formControlName="carCapacity">
+                </div>
+                <div class="form-group">
+                    <label for="vin">VIN or FRAME number</label>
+                    <input class="form-control" type="text" name="vin" id="vin" formControlName="carVin">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-car-list></app-car-list>

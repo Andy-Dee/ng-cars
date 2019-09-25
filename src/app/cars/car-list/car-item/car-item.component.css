@@ -1,0 +1,29 @@
+.car-card {
+    height: 235px;
+    border: 1px solid gainsboro;
+    padding: 15px;
+}
+
+.car-add-date {
+    color: #a1a1a1;
+    font-size: 13px;
+    text-align: right;
+}
+
+.car-name {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.car-edit {
+    color: #1f68c0;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.car-card img {
+    height: 100px;
+    max-width: 100%;
+    margin: 0 auto;
+}
