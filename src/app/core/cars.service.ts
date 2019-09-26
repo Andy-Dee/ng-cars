@@ -7,12 +7,23 @@ import { Subject } from 'rxjs';
 export class CarsService {
     cars: Car[] = [];
     carsChanged = new Subject<Car[]>();
+    startedEditing = new Subject<number>();
 
     addCar(car: Car) {
         this.cars.push(car);
         this.carsChanged.next(this.cars.slice());
         console.log(this.cars);
         console.log(this.carsChanged);
+    }
+
+    getCar(index: number) {
+        return this.cars[index];
+    }
+
+    editCar(index: number, newCar: Car) {
+        this.cars[index] = newCar;
+        this.carsChanged.next(this.cars.slice());
+        console.log(newCar);
     }
 
     deleteCar(index: number) {

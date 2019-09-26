@@ -3,7 +3,7 @@ import { Car } from '../shared/car.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataService } from '../core/data.service';
 import { CarsList } from '../shared/carsList.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CarsService } from '../core/cars.service';
 import { formatDate } from '@angular/common';
 
@@ -14,7 +14,7 @@ import { formatDate } from '@angular/common';
 })
 
 export class CarsComponent implements OnInit {
-  addCarForm: FormGroup;
+  addCarForm: FormGroup;  
   errorMessage: string;
 
   carsList: CarsList[] = [];
@@ -27,7 +27,12 @@ export class CarsComponent implements OnInit {
   @ViewChild('carImage', {static: false}) carImage: ElementRef;
 
   cars: Car[] = [];
-  car: Car;  
+  car: Car;
+  
+  editMode = false;
+  editedCarIndex: number;
+  editedCar: Car;
+  subscriptionEdit: Subscription;
 
   constructor(private dataService: DataService, private carsService: CarsService) { }
 
@@ -40,6 +45,22 @@ export class CarsComponent implements OnInit {
       error => this.errorMessage = error
     );
 
+    this.subscriptionEdit = this.carsService.startedEditing
+      .subscribe(
+        (index: number) => {
+          this.editMode = true;
+          this.editedCarIndex = index;        
+          this.editedCar = this.carsService.getCar(index);
+          this.addCarForm .setValue({
+            carBrand: this.editedCar.brand,
+            carModel: this.editedCar.model,
+            carModification: this.editedCar.modification,
+            carYear: this.editedCar.year,
+            carCapacity: this.editedCar.capacity,
+            carVin: this.editedCar.vin,
+          })
+        }
+      );
   }
   
   selectBrand(car: Car) {
@@ -132,7 +153,14 @@ export class CarsComponent implements OnInit {
       value.carVin,
       carImage
     );
-    this.carsService.addCar(newCar);
+
+    if (this.editMode) {
+      this.carsService.editCar(this.editedCarIndex, newCar);
+    } else {
+      this.carsService.addCar(newCar);
+    }
+
+    this.editMode = false;
 
     console.log(newCar);
     form.reset();
