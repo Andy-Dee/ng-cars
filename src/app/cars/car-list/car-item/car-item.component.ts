@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Car } from 'src/app/shared/car.model';
+import { CarsService } from 'src/app/core/cars.service';
 
 @Component({
   selector: 'app-car-item',
@@ -9,10 +10,15 @@ import { Car } from 'src/app/shared/car.model';
 export class CarItemComponent implements OnInit {
   @Input() car: Car;
   @Input() index: number;
+  id: number;
 
-  constructor() { }
+  constructor(private carService: CarsService) { }
 
   ngOnInit() {
+  }
+
+  onDeleteCar() {
+    this.carService.deleteCar(this.id);
   }
 
 }

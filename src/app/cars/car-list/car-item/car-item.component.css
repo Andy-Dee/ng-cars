@@ -16,14 +16,28 @@
     margin-bottom: 0;
 }
 
-.car-edit {
-    color: #1f68c0;
+.car-controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+.car-card a {
     font-size: 13px;
     font-weight: 400;
+    cursor: pointer;
+    display: block;
+}
+
+a.car-edit {
+    color: #1f68c0;
+}
+
+a.car-delete {
+    color: #ef5350;
 }
 
 .car-card img {
     height: 100px;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 10px;
 }

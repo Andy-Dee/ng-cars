@@ -14,6 +14,9 @@ import { formatDate } from '@angular/common';
 })
 
 export class CarsComponent implements OnInit {
+  addCarForm: FormGroup;
+  errorMessage: string;
+
   carsList: CarsList[] = [];
   carsListObservable: Observable<CarsList[]>;
 
@@ -23,11 +26,8 @@ export class CarsComponent implements OnInit {
   @ViewChild('carId', {static: false}) carId: ElementRef;
   @ViewChild('carImage', {static: false}) carImage: ElementRef;
 
-  filteredBrand: Car[] = [];  
   cars: Car[] = [];
-  car: Car;
-  addCarForm: FormGroup;
-  errorMessage: string;
+  car: Car;  
 
   constructor(private dataService: DataService, private carsService: CarsService) { }
 
@@ -118,7 +118,7 @@ export class CarsComponent implements OnInit {
   
   onSubmit(form: FormGroup) {
     const value = form.value;
-    const carDate = formatDate(new Date(), 'yyy/MM/dd', 'en');
+    const carDate = formatDate(new Date(), 'yyyy.MM.dd', 'en');
     const carId = this.carId.nativeElement.className;
     const carImage = this.carImage.nativeElement.className;
     const newCar = new Car(

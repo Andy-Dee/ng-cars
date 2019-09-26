@@ -14,5 +14,10 @@ export class CarsService {
         console.log(this.cars);
         console.log(this.carsChanged);
     }
+
+    deleteCar(index: number) {
+        this.cars.splice(index, 1);
+        this.carsChanged.next(this.cars.slice());
+    }
     
 }
