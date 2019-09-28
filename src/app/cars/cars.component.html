@@ -4,7 +4,7 @@
         <a href="" data-toggle="collapse" data-target="#add-car" class="add-car-btn" aria-expanded="true">
             <img src="../../assets/img/add-car-little.png" alt="Add car">
         </a>
-        <div id="add-car" class="fade add-car-wrap collapse {{showCollapseClass}} mt-4" aria-expanded="true">
+        <div id="add-car" class="fade add-car-wrap collapse show mt-4" aria-expanded="true">
             <form [formGroup]="addCarForm" (ngSubmit)="onSubmit(addCarForm)" novalidate>
                 <div class="form-group">
                     <label for="brand">Brand</label>
@@ -35,10 +35,6 @@
                 <div class="form-group">
                     <label for="year">Year</label>
                     <input class="form-control" type="text" name="year" id="year" formControlName="carYear">
-                </div>
-                <div class="form-group">
-                    <label for="capacity">Engine capacity</label>
-                    <input class="form-control" type="text" name="capacity" id="capacity" formControlName="carCapacity">
                 </div>
                 <div class="form-group">
                     <label for="vin">VIN or FRAME number</label>

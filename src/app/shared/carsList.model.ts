@@ -5,7 +5,6 @@ export class CarsList {
         public model: string,
         public modification: string,
         public year: number,
-        public capacity: number,
         public model_image_path: string, 
         public vin: number
     ) {}

@@ -34,6 +34,9 @@ export class CarsComponent implements OnInit {
   editedCar: Car;
   subscriptionEdit: Subscription;
 
+  storedCarsList: CarsList[] = [];
+  storedCars$: Observable<CarsList[]>;
+
   constructor(private dataService: DataService, private carsService: CarsService) { }
 
   ngOnInit() {
@@ -42,6 +45,12 @@ export class CarsComponent implements OnInit {
     this.carsListObservable = this.dataService.fetchCars();
     this.carsListObservable.subscribe(
       carsList => this.carsList = carsList,
+      error => this.errorMessage = error
+    );
+
+    this.storedCars$ = this.dataService.loadCars();
+    this.storedCars$.subscribe(
+      storedCarsList => this.storedCarsList = storedCarsList,
       error => this.errorMessage = error
     );
 
@@ -56,7 +65,6 @@ export class CarsComponent implements OnInit {
             carModel: this.editedCar.model,
             carModification: this.editedCar.modification,
             carYear: this.editedCar.year,
-            carCapacity: this.editedCar.capacity,
             carVin: this.editedCar.vin,
           })
         }
@@ -124,7 +132,6 @@ export class CarsComponent implements OnInit {
     let carModel = '';
     let carModification = '';
     let carYear = '';
-    let carCapacity = '';
     let carVin = '';
 
     this.addCarForm = new FormGroup({
@@ -132,7 +139,6 @@ export class CarsComponent implements OnInit {
       carModel: new FormControl(carModel, Validators.required),
       carModification: new FormControl(carModification, Validators.required),
       carYear: new FormControl(carYear, Validators.required),
-      carCapacity: new FormControl(carCapacity, Validators.required),
       carVin: new FormControl(carVin, Validators.required)
     });
   }
@@ -148,16 +154,17 @@ export class CarsComponent implements OnInit {
       value.carBrand, 
       value.carModel, 
       value.carModification,       
-      value.carYear, 
-      value.carCapacity, 
+      value.carYear,
       value.carVin,
       carImage
     );
 
     if (this.editMode) {
       this.carsService.editCar(this.editedCarIndex, newCar);
+      this.dataService.storeCars();
     } else {
       this.carsService.addCar(newCar);
+      this.dataService.storeCars();
     }
 
     this.editMode = false;

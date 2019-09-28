@@ -20,6 +20,15 @@ export class CarsService {
         return this.cars[index];
     }
 
+    setCars(cars: Car[]) {
+        this.cars = cars;
+        this.carsChanged.next(this.cars.slice());
+    }
+
+    getCars() {
+        return this.cars.slice();
+    }
+
     editCar(index: number, newCar: Car) {
         this.cars[index] = newCar;
         this.carsChanged.next(this.cars.slice());

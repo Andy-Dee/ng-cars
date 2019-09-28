@@ -1,7 +1,7 @@
 <div class="car-card mb-3">
     <p class="car-add-date">Added {{car.date}}</p>
     <img src="{{ car.model_image_path }}">
-    <p class="car-name">{{ car.modification }}, {{ car.year }} y., {{ car.capacity }} l, ({{ car.vin }})</p>
+    <p class="car-name">{{ car.modification }}, {{ car.year }} y., ({{ car.vin }})</p>
     <div class="car-controls">
         <a class="car-edit" (click)="onEditCar(i)">Edit</a>
         <a class="car-delete" (click)="onDeleteCar(i)">Delete</a>
