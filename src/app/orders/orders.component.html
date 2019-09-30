@@ -21,11 +21,11 @@
             <th scope="col">Remove</th>
         </tr>
     </thead>
-    <tbody *ngFor="let product of products; let i = index">
+    <tbody *ngFor="let product of products; index as i">
         <tr>
             <td> {{ product.orderNumber }} </td>
             <td>
-                <input (input)="checkedOrder(product.id, $event.target.checked)" id="{{ product.code }}" type="checkbox" name="{{ product.code }}" value="{{ product.code }}">
+                <input (change)="checkedOrder(product)" id="{{ product.code }}" type="checkbox" name="{{ product.code }}" value="{{ product.code }}">
                 <label class="label-checkbox" for="{{ product.code }}">
                     <span></span>
                     {{ product.code }}
@@ -62,10 +62,10 @@
                 <div *ngIf="product.invoice === true" class="invoice"></div>
             </td>
             <td>
-                <a (click)="deleteOrder(i)" class="delete">&#10006;</a>
+                <a (click)="deleteOrder(product)" class="delete">&#10006;</a>
             </td>
         </tr>
     </tbody>
 </table>
-<!-- <hr> -->
-<!-- <div class="btn btn-success" (click)="deleteOrdersChecked()">Delete selected</div> -->
+<hr>
+<div class="btn btn-success" (click)="deleteOrdersChecked($event)">Delete selected</div>
