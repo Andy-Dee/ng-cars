@@ -1,1 +1,26 @@
 <h2 class="tab-title mb-3">My profile</h2>
+<div class="row mb-3">
+    <div class="col-xs-12 col-sm-6">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm)">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" formControlName="profileName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="surname">Surename</label>
+                <input type="text" name="surname" id="surname" formControlName="profileSurname" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" formControlName="profileEmail" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" name="phone" id="phone" formControlName="profilePhone" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">{{ editMode ? 'Edit' : 'Save' }}</button>
+            </div>
+        </form>
+    </div>
+</div>

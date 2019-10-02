@@ -245,3 +245,7 @@ a.delete {
     margin: 0 auto;
     text-align: center;
 }
+
+.alert p {
+    margin-bottom: 0;
+}
