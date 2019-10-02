@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
-import { Product } from '../shared/product.model';
-import { Balance } from '../shared/balance.model';
 import { CarsService } from './cars.service';
 import { Car } from '../shared/car.model';
 
@@ -40,9 +38,9 @@ export class DataService {
             )
     }
 
-    fetchAccounts() : Observable<any> {
+    fetchBills() : Observable<any> {
         return this.http
-            .get<any>(this.baseUrl + 'accounts.json')
+            .get<any>(this.baseUrl + 'bills.json')
             .pipe(
                 map(res => res),
                 catchError(this.handleErrorObservable)

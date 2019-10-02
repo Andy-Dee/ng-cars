@@ -1,4 +1,4 @@
-export interface Account {
+export interface Bill {
     id: number;
     date: string;
     number: number;

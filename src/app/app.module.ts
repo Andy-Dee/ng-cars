@@ -9,7 +9,7 @@ import { OrdersComponent } from './orders/orders.component';
 import { RequestsComponent } from './requests/requests.component';
 import { BalanceComponent } from './balance/balance.component';
 import { CarsComponent } from './cars/cars.component';
-import { AccountsComponent } from './accounts/accounts.component';
+import { BillsComponent } from './bills/bills.component';
 import { SaleComponent } from './sale/sale.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DataService } from './core/data.service';
@@ -30,7 +30,7 @@ import { CarItemComponent } from './cars/car-list/car-item/car-item.component';
     RequestsComponent,
     BalanceComponent,
     CarsComponent,
-    AccountsComponent,
+    BillsComponent,
     SaleComponent,
     ProfileComponent,
     FilterUniqueCarsPipe,
