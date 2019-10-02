@@ -20,6 +20,8 @@ import { FilterUniqueModificationsPipe } from './core/unique-modifications.filte
 import { CarsService } from './core/cars.service';
 import { CarListComponent } from './cars/car-list/car-list.component';
 import { CarItemComponent } from './cars/car-list/car-item/car-item.component';
+import { AuthComponent } from './auth/auth.component';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 
 @NgModule({
@@ -37,7 +39,9 @@ import { CarItemComponent } from './cars/car-list/car-item/car-item.component';
     FilterUniqueModelsPipe,
     FilterUniqueModificationsPipe,
     CarListComponent,
-    CarItemComponent
+    CarItemComponent,
+    AuthComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
