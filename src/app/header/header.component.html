@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-end mt-1 mb-1" *ngIf="isAuthentificated">
-    <button type="button" class="btn btn-link">LogOut</button>
+    <button type="button" class="btn btn-link" (click)="onLogOut()">LogOut</button>
 </div>
 <ul class="cabinet-tabs" *ngIf="isAuthentificated">
     <li routerLinkActive='active' [routerLinkActiveOptions]="{autoapply: true}">

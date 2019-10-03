@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private userSubscription: Subscription;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -24,6 +26,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         console.log(!!user);
       }
     );
+  }
+
+  onLogOut() {
+    this.authService.logout();
+    this.router.navigate(['auth']);
   }
 
   ngOnDestroy() {
