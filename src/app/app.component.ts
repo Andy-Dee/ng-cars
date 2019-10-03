@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,14 @@ export class AppComponent implements OnInit {
 
   newTitle: string;
 
-  public constructor(private titleService: Title) {}
+  public constructor(
+    private titleService: Title,
+    private authService: AuthService
+    ) {}
 
   ngOnInit() {
     this.titleService.setTitle('Presentation project');
+
+    this.authService.autoLogin();
   }
 }
