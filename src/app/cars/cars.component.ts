@@ -35,24 +35,18 @@ export class CarsComponent implements OnInit {
   subscriptionEdit: Subscription;
 
   storedCarsList: CarsList[] = [];
-  storedCars$: Observable<CarsList[]>;
 
   constructor(private dataService: DataService, private carsService: CarsService) { }
 
   ngOnInit() {
     this.initForm();
+    this.dataService.loadCars().subscribe();
 
     this.carsListObservable = this.dataService.fetchCars();
     this.carsListObservable.subscribe(
       carsList => this.carsList = carsList,
       error => this.errorMessage = error
-    );
-
-    this.storedCars$ = this.dataService.loadCars();
-    this.storedCars$.subscribe(
-      storedCarsList => this.storedCarsList = storedCarsList,
-      error => this.errorMessage = error
-    );
+    );    
 
     this.subscriptionEdit = this.carsService.startedEditing
       .subscribe(

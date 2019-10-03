@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError, tap, take, exhaustMap } from 'rxjs/operators';
 import { CarsService } from './cars.service';
 import { Car } from '../shared/car.model';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 
@@ -12,7 +13,8 @@ export class DataService {
 
     constructor(
         private http: HttpClient,
-        private carsService: CarsService
+        private carsService: CarsService,
+        private authService: AuthService
         ) {}
 
     private handleErrorObservable (error: Response | any) {
@@ -67,23 +69,37 @@ export class DataService {
 
     storeCars() {
         const cars = this.carsService.getCars();
-        const headers = new HttpHeaders().set('Content-Type', 'application/json');
-        this.http.put('https://andy-cars.firebaseio.com/store-cars.json', cars, {headers})
-                 .subscribe(
-                     response => {
-                         console.log(response);
-                     }
-                 )
+        this.authService.user
+            .pipe(
+                take(1),
+                exhaustMap(
+                    user => {
+                        return this.http.put<Car[]>('https://andy-cars.firebaseio.com/store-cars.json', cars, {
+                            params: new HttpParams().set('auth', user.token)
+                        })
+                    }
+                )
+            )
+        
     }
 
     loadCars() {
-       return this.http
-        .get<Car[]>('https://andy-cars.firebaseio.com/store-cars.json')
-        .pipe(
-            tap(cars => {
-                this.carsService.setCars(cars);
-            })
-        );
+        return this.authService.user
+            .pipe(
+                take(1),
+                exhaustMap(
+                    user => {
+                        return this.http.get<Car[]>('https://andy-cars.firebaseio.com/store-cars.json',
+                            {
+                                params: new HttpParams().set('auth', user.token)
+                            }
+                        );
+                    }
+                ),
+                tap(cars => {
+                    this.carsService.setCars(cars);
+                })
+            )
     }
     
 }
