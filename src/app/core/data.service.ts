@@ -69,7 +69,7 @@ export class DataService {
 
     storeCars() {
         const cars = this.carsService.getCars();
-        this.http.put<Car[]>('https://andy-cars.firebaseio.com/store-cars.json', cars);        
+        this.http.put<Car[]>('https://andy-cars.firebaseio.com/store-cars.json', cars).subscribe();        
     }
 
     loadCars() {
