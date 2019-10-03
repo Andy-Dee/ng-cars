@@ -11,7 +11,7 @@ import { AuthComponent } from './auth/auth.component';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/orders', pathMatch: 'full'},
+  {path: '', redirectTo: '/auth', pathMatch: 'full'},
   {path: 'auth', component: AuthComponent},
   {path: 'orders', component: OrdersComponent},
   {path: 'requests', component: RequestsComponent},

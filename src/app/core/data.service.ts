@@ -69,37 +69,17 @@ export class DataService {
 
     storeCars() {
         const cars = this.carsService.getCars();
-        this.authService.user
-            .pipe(
-                take(1),
-                exhaustMap(
-                    user => {
-                        return this.http.put<Car[]>('https://andy-cars.firebaseio.com/store-cars.json', cars, {
-                            params: new HttpParams().set('auth', user.token)
-                        })
-                    }
-                )
-            )
-        
+        this.http.put<Car[]>('https://andy-cars.firebaseio.com/store-cars.json', cars);        
     }
 
     loadCars() {
-        return this.authService.user
-            .pipe(
-                take(1),
-                exhaustMap(
-                    user => {
-                        return this.http.get<Car[]>('https://andy-cars.firebaseio.com/store-cars.json',
-                            {
-                                params: new HttpParams().set('auth', user.token)
-                            }
-                        );
-                    }
-                ),
-                tap(cars => {
-                    this.carsService.setCars(cars);
-                })
-            )
+        return this.http
+        .get<Car[]>('https://andy-cars.firebaseio.com/store-cars.json')
+        .pipe(
+            tap(cars => {
+                this.carsService.setCars(cars);
+            })
+        )
     }
     
 }

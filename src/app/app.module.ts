@@ -13,7 +13,7 @@ import { BillsComponent } from './bills/bills.component';
 import { SaleComponent } from './sale/sale.component';
 import { ProfileComponent } from './profile/profile.component';
 import { DataService } from './core/data.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FilterUniqueCarsPipe } from './core/unique-cars.filter';
 import { FilterUniqueModelsPipe } from './core/unique-models.filter';
 import { FilterUniqueModificationsPipe } from './core/unique-modifications.filter';
@@ -22,6 +22,7 @@ import { CarListComponent } from './cars/car-list/car-list.component';
 import { CarItemComponent } from './cars/car-list/car-item/car-item.component';
 import { AuthComponent } from './auth/auth.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
   providers: [
     Title,
     DataService,
-    CarsService
+    CarsService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })
