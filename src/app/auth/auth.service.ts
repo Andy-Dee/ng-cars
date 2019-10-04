@@ -4,6 +4,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 import { environment } from 'src/environments/environment.prod';
+import { Router } from '@angular/router';
 
 export interface AuthResponseData {
   kind: string;
@@ -23,7 +24,8 @@ export class AuthService {
   user = new BehaviorSubject<User>(null);
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   signUp(email: string, password: string) {
@@ -82,6 +84,8 @@ export class AuthService {
     if (!userData) {
       return;
     }
+
+    this.router.navigate(['/orders']);
 
     const loadedUser = new User(
       userData.email,
