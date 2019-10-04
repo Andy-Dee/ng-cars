@@ -19,6 +19,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Presentation project');
 
-    this.authService.autoLogin();
+    this.authService.autoLogIn();
   }
 }
