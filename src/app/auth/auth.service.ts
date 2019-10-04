@@ -103,6 +103,9 @@ export class AuthService {
 
   logOut() {
     this.user.next(null);
+    this.carsService.carsChanged.next(this.carsService.cars.slice());
+    this.carsService.cars = [];
+    console.log(this.carsService.cars);
     this.router.navigate(['/auth']);
     localStorage.removeItem('UserData');
     if (this.tokenExpirationTimer) {
