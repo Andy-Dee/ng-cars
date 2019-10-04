@@ -69,12 +69,12 @@ export class DataService {
 
     storeCars() {
         const cars = this.carsService.getCars();
-        this.http.put<Car[]>('https://andy-cars.firebaseio.com/store-cars.json', cars).subscribe();        
+        this.http.put<Car[]>('https://andy-cars.firebaseio.com/' + this.authService.user.value.id + '/store-cars.json', cars).subscribe();        
     }
 
     loadCars() {
         return this.http
-        .get<Car[]>('https://andy-cars.firebaseio.com/store-cars.json')
+        .get<Car[]>('https://andy-cars.firebaseio.com/' + this.authService.user.value.id + '/store-cars.json')
         .pipe(
             tap(cars => {
                 this.carsService.setCars(cars);

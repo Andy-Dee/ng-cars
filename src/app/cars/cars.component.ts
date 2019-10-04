@@ -6,6 +6,7 @@ import { CarsList } from '../shared/carsList.model';
 import { Observable, Subscription } from 'rxjs';
 import { CarsService } from '../core/cars.service';
 import { formatDate } from '@angular/common';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-cars',
@@ -36,7 +37,11 @@ export class CarsComponent implements OnInit {
 
   storedCarsList: CarsList[] = [];
 
-  constructor(private dataService: DataService, private carsService: CarsService) { }
+  constructor(
+    private dataService: DataService,
+    private carsService: CarsService,
+    private authService: AuthService 
+     ) { }
 
   ngOnInit() {
     this.initForm();
@@ -142,6 +147,7 @@ export class CarsComponent implements OnInit {
     const carDate = formatDate(new Date(), 'yyyy.MM.dd', 'en');
     const carId = this.carId.nativeElement.className;
     const carImage = this.carImage.nativeElement.className;
+    const userId = this.authService.user.value.id;
     const newCar = new Car(
       carDate,
       carId, 
@@ -150,7 +156,8 @@ export class CarsComponent implements OnInit {
       value.carModification,       
       value.carYear,
       value.carVin,
-      carImage
+      carImage,
+      userId
     );
 
     if (this.editMode) {

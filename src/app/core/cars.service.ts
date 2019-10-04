@@ -21,8 +21,10 @@ export class CarsService {
     }
 
     setCars(cars: Car[]) {
-        this.cars = cars;
-        this.carsChanged.next(this.cars.slice());
+        if (cars) {
+            this.cars = cars;
+            this.carsChanged.next(this.cars.slice());
+        }
     }
 
     getCars() {
