@@ -4,7 +4,7 @@
         <a href="" data-toggle="collapse" data-target="#add-car" class="add-car-btn d-block mb-3" aria-expanded="true">
             <img src="../../assets/img/add-car-little.png" alt="Add car">
         </a>
-        <div id="add-car" class="fade add-car-wrap collapse mt-4" aria-expanded="true">
+        <div id="add-car" class="fade add-car-wrap collapse show mt-4" aria-expanded="true">
             <form [formGroup]="addCarForm" (ngSubmit)="onSubmit(addCarForm)" novalidate>
                 <div class="form-group">
                     <label for="brand">Brand</label>
@@ -40,8 +40,9 @@
                     <label for="vin">VIN or FRAME number</label>
                     <input class="form-control" type="text" name="vin" id="vin" formControlName="carVin">
                 </div>
-                <div class="form-group">
+                <div class="form-group d-flex justify-content-between">
                     <button type="submit" class="btn btn-success">{{ editMode ? 'Edit' : 'Save' }}</button>
+                    <button *ngIf="editMode" type="button" class="btn btn-danger" (click)="cancelEdit()">Cancel</button>
                 </div>
             </form>
         </div>

@@ -1,20 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, catchError, tap, take, exhaustMap } from 'rxjs/operators';
-import { CarsService } from './cars.service';
-import { Car } from '../shared/car.model';
-import { AuthService } from '../auth/auth.service';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable()
 
 export class DataService {
-    baseUrl: string = 'assets/data/';    
+    baseUrl: string = 'assets/data/';
 
     constructor(
-        private http: HttpClient,
-        private carsService: CarsService,
-        private authService: AuthService
+        private http: HttpClient
         ) {}
 
     private handleErrorObservable (error: Response | any) {
@@ -65,21 +60,6 @@ export class DataService {
                 map(res => res),
                 catchError(this.handleErrorObservable)
             )
-    }
-
-    storeCars() {
-        const cars = this.carsService.getCars();
-        this.http.put<Car[]>('https://andy-cars.firebaseio.com/' + this.authService.user.value.id + '/store-cars.json', cars).subscribe();        
-    }
-
-    loadCars() {
-        return this.http
-        .get<Car[]>('https://andy-cars.firebaseio.com/' + this.authService.user.value.id + '/store-cars.json')
-        .pipe(
-            tap(cars => {
-                this.carsService.setCars(cars);
-            })
-        )
     }
     
 }

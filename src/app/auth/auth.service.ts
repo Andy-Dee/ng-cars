@@ -1,142 +1,101 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
-import { throwError, Subject, BehaviorSubject } from 'rxjs';
-import { User } from './user.model';
-import { environment } from 'src/environments/environment.prod';
+import { HttpErrorResponse } from '@angular/common/http';
+import { switchMap } from 'rxjs/operators';
+import { throwError, of, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-export interface AuthResponseData {
-  kind: string;
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  //registered?: boolean;
-}
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { User } from './user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  user = new BehaviorSubject<User>(null);
-  tokenExpirationTimer: any;
+  user$: Observable<User>;
+  userData$: Observable<User>;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) { }
-
-  signUp(email: string, password: string) {
-    return this.http
-    .post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebase.APIKey,
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true
+  constructor(    
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private afStore: AngularFirestore
+  ) {
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.afStore.doc<User>('users/' + user.uid).valueChanges();          
+        } else {
+          return of(null)
+        }
       })
-    .pipe(
-      catchError(this.handleError),
-      tap(
-        responseData => {
-          this.handleAuthentification(
-            responseData.email,
-            responseData.localId,
-            responseData.idToken,
-            +responseData.expiresIn
-          );
+    )    
+  }
+  
+  async signUp(email: string, password: string) {
+    try {
+      const credential = await this.afAuth.auth
+        .createUserWithEmailAndPassword(email, password);
+      console.log('Signup successfully!');
+      this.router.navigate(['/profile']);
+      return this.updateUserData(credential.user);
+    }
+    catch (error) {
+      return this.handleError(error);
+    }
+  }
+
+  async logIn(email: string, password: string) {
+    try {
+      const credential = await this.afAuth.auth
+        .signInWithEmailAndPassword(email, password);
+      console.log('Login successfully!');
+      this.router.navigate(['/profile']);
+      console.log(credential.user);
+      console.log(this.user$);
+      return this.updateUserDataLogin(credential.user);
+    }
+    catch (error) {
+      return this.handleError(error);
+    }
+  }
+
+  async resetPassword(email: string) {
+    try {
+      await this.afAuth.auth.sendPasswordResetEmail(email);
+      return console.log('Password update email sent');
+    }
+    catch (error) {
+      return this.handleError(error);
+    }
+  }
+
+  signOut() {
+    this.afAuth.auth.signOut()
+      .then(
+        () => {
+          this.router.navigate(['/auth']);
         }
       )
-    )
   }
 
-  signIn(email: string, password: string) {
-    return this.http
-      .post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebase.APIKey, {
-        email: email,
-        password: password,
-        returnSecureToken: true
-      })
-      .pipe(
-        catchError(this.handleError),
-        tap(
-          responseData => {
-            this.handleAuthentification(
-              responseData.email,
-              responseData.localId,
-              responseData.idToken,
-              +responseData.expiresIn
-            );
-          }
-        )
-      )
-  }
-
-  autoLogIn() {
-    const userData: {
-      email: string;
-      id: string;
-      _token: string;
-      _tokenExpirationDate: string;
-    } = JSON.parse(localStorage.getItem('UserData'));
-
-    if (!userData) {
-      return;
+  updateUserData(user: User) {
+    const userRef: AngularFirestoreDocument<any> = this.afStore.doc('users/' + user.uid);
+    const data: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName
     }
+    return userRef.set(data, {merge: true});
+  }
 
-    const loadedUser = new User(
-      userData.email,
-      userData.id,
-      userData._token,
-      new Date(userData._tokenExpirationDate)
-    );
-
-    if (loadedUser.token) {      
-      this.user.next(loadedUser);
-      const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
-      this.autoLogOut(expirationDuration); 
-      console.log(expirationDuration);     
+  updateUserDataLogin(user: User) {
+    const userRef: AngularFirestoreDocument<any> = this.afStore.doc('users/' + user.uid);
+    const data: User = {
+      uid: user.uid,
+      email: user.email
     }
-  }
-
-  logOut() {
-    this.user.next(null);
-    this.carsService.carsChanged.next(this.carsService.cars.slice());
-    this.carsService.cars = [];
-    console.log(this.carsService.cars);
-    this.router.navigate(['/auth']);
-    localStorage.removeItem('UserData');
-    if (this.tokenExpirationTimer) {
-      clearTimeout(this.tokenExpirationTimer);
-    }
-    this.tokenExpirationTimer = null;
-  }
-
-  autoLogOut(expirationDuration: number) {
-    this.tokenExpirationTimer = setTimeout(() => {
-      this.logOut();
-    }, expirationDuration)
-  }
-
-  private handleAuthentification(
-    email: string,
-    userId: string,
-    token: string,
-    expiresIn: number
-  ) {
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-          const user = new User(
-            email, 
-            userId, 
-            token,
-            expirationDate
-            );
-          this.user.next(user);
-          this.autoLogOut(expiresIn * 1000);
-          localStorage.setItem('UserData', JSON.stringify(user));
-          console.log(user);
+    return userRef.set(data, {merge: true});
   }
 
   private handleError(errorResponse: HttpErrorResponse) {

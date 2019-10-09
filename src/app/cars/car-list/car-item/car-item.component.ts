@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Car } from 'src/app/shared/car.model';
 import { CarsService } from 'src/app/core/cars.service';
-import { DataService } from 'src/app/core/data.service';
 
 @Component({
   selector: 'app-car-item',
@@ -10,24 +9,22 @@ import { DataService } from 'src/app/core/data.service';
 })
 export class CarItemComponent implements OnInit {
   @Input() car: Car;
-  @Input() index: number;
+  @Input() index: number;  
 
   constructor(
-    private carService: CarsService,
-    private dataService: DataService
-    ) { }
+    private carService: CarsService
+    ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  onEditCar(id: any) { 
+    this.carService.startedEditing.next(id);
+    console.log(id);
   }
 
-  onEditCar() { 
-    this.carService.startedEditing.next(this.index);
-    console.log(this.index);
-  }
-
-  onDeleteCar() {
-    this.carService.deleteCar(this.index);
-    this.dataService.storeCars();
+  onDeleteCar(id: any) {
+    this.carService.deleteCar(id);
+    console.log(id);
   }
 
 }

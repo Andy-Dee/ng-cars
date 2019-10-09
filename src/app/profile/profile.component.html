@@ -1,26 +1,31 @@
 <h2 class="tab-title mb-3">My profile</h2>
-<div class="row mb-3">
+<div class="row mb-3" *ngIf="authService.user$ | async as user$">
     <div class="col-xs-12 col-sm-6">
-        <form [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm)">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" formControlName="profileName" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="surname">Surename</label>
-                <input type="text" name="surname" id="surname" formControlName="profileSurname" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" formControlName="profileEmail" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone</label>
-                <input type="tel" name="phone" id="phone" formControlName="profilePhone" class="form-control">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success">{{ editMode ? 'Edit' : 'Save' }}</button>
-            </div>
-        </form>
+        <table class="table table-borderless table-profile">
+            <tr>
+                <td>Name:</td>
+                <td>
+                    <form [formGroup]="profileForm" (ngSubmit)="onSubmit(profileForm)" class="d-flex justify-content-between align-items-end">
+                        <div class="col-10">
+                            <input type="text" name="name" id="name" formControlName="profileName" class="form-control" placeholder="{{ user$.displayName ? user$.displayName : 'Add Name' }}">
+                        </div>
+                        <div class="col-2">
+                            <button type="submit" class="btn btn-success">{{ user$.displayName ? 'Edit' : 'Save' }}</button>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <div class="col-12">
+                        {{ user$.email }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+
     </div>
 </div>

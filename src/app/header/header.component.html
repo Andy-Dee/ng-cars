@@ -1,7 +1,7 @@
-<div class="d-flex justify-content-end mt-1 mb-1" *ngIf="isAuthentificated">
+<div class="d-flex justify-content-end mt-1 mb-1" *ngIf="authService.user$ | async">
     <button type="button" class="btn btn-link" (click)="onLogOut()">LogOut</button>
 </div>
-<ul class="cabinet-tabs" *ngIf="isAuthentificated">
+<ul class="cabinet-tabs" *ngIf="authService.user$ | async">
     <li routerLinkActive='active' [routerLinkActiveOptions]="{autoapply: true}">
         <a routerLink='/orders' routerLinkActive="router-link-active ">
             <p class="d-xs-none ">My orders</p><img class="d-sm-none " src="../../assets/img/my-offers.png "></a>

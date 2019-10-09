@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService, AuthResponseData } from './auth.service';
-import { Observable, Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { AuthService} from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -15,8 +13,7 @@ export class AuthComponent implements OnInit {
   error: string = null;
 
   constructor(
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -30,32 +27,19 @@ export class AuthComponent implements OnInit {
     if (!form.valid) {
       return;
     }
-
+    
     const email = form.value.email;
     const password = form.value.password;
     
     this.isLoading = true;
 
-    let authObservable: Observable<AuthResponseData>;
-
     if (this.isLoginMode) {
-      authObservable = this.authService.signIn(email, password);
+      this.authService.logIn(email, password);
+      this.isLoading = false;
     } else {
-      authObservable = this.authService.signUp(email, password);
+      this.authService.signUp(email, password);
+      this.isLoading = false;
     }
-
-    authObservable.subscribe(
-      responseData => {
-        console.log(responseData);
-        this.isLoading = false;
-        this.router.navigate(['/profile']);
-      },
-      errorMessage => {
-        console.log(errorMessage);
-        this.error = errorMessage;
-        this.isLoading = false;
-      }
-    )
 
     form.reset();
   }

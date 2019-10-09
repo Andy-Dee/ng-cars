@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Car } from '../shared/car.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataService } from '../core/data.service';
@@ -6,7 +6,7 @@ import { CarsList } from '../shared/carsList.model';
 import { Observable, Subscription } from 'rxjs';
 import { CarsService } from '../core/cars.service';
 import { formatDate } from '@angular/common';
-import { AuthService } from '../auth/auth.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-cars',
@@ -14,7 +14,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./cars.component.css']
 })
 
-export class CarsComponent implements OnInit {
+export class CarsComponent implements OnInit, OnDestroy {
   addCarForm: FormGroup;  
   errorMessage: string;
 
@@ -30,36 +30,48 @@ export class CarsComponent implements OnInit {
   cars: Car[] = [];
   car: Car;
   
-  editMode = false;
-  editedCarIndex: number;
+  editedCarIndex: any;
   editedCar: Car;
   subscriptionEdit: Subscription;
-
-  storedCarsList: CarsList[] = [];
+  subscriptionGetCars: Subscription;
+  editMode = false;
 
   constructor(
     private dataService: DataService,
     private carsService: CarsService,
-    private authService: AuthService 
-     ) { }
+    private db: AngularFirestore 
+     ) {}
 
   ngOnInit() {
     this.initForm();
-    this.dataService.loadCars().subscribe();
 
     this.carsListObservable = this.dataService.fetchCars();
     this.carsListObservable.subscribe(
       carsList => this.carsList = carsList,
       error => this.errorMessage = error
-    );    
+    ); 
+    
+    this.subscriptionGetCars = this.carsService.getCars().subscribe(
+      action => {
+        this.cars = action.map(
+          item => {
+            return {
+              id: item.payload.doc.id,
+              ...item.payload.doc.data()
+            } as Car
+          }
+        )
+      }
+    )
 
     this.subscriptionEdit = this.carsService.startedEditing
       .subscribe(
-        (index: number) => {
+        (id: any) => {
           this.editMode = true;
-          this.editedCarIndex = index;        
-          this.editedCar = this.carsService.getCar(index);
-          this.addCarForm .setValue({
+          this.editedCarIndex = id;   
+          this.editedCar = this.getCar(id);          
+          console.log(this.editedCar);
+          this.addCarForm.setValue({
             carBrand: this.editedCar.brand,
             carModel: this.editedCar.model,
             carModification: this.editedCar.modification,
@@ -68,6 +80,13 @@ export class CarsComponent implements OnInit {
           })
         }
       );
+  }
+
+  getCar(id: any) {    
+    const carSelected = this.cars.find(car => car.id == id);
+    console.log(carSelected);
+    this.carsService.carChanged.next(carSelected);
+    return carSelected;
   }
   
   selectBrand(car: Car) {
@@ -145,27 +164,23 @@ export class CarsComponent implements OnInit {
   onSubmit(form: FormGroup) {
     const value = form.value;
     const carDate = formatDate(new Date(), 'yyyy.MM.dd', 'en');
-    const carId = this.carId.nativeElement.className;
+    const carId = this.db.createId();
     const carImage = this.carImage.nativeElement.className;
-    const userId = this.authService.user.value.id;
     const newCar = new Car(
+      carId,
       carDate,
-      carId, 
       value.carBrand, 
       value.carModel, 
       value.carModification,       
       value.carYear,
       value.carVin,
-      carImage,
-      userId
+      carImage
     );
 
     if (this.editMode) {
       this.carsService.editCar(this.editedCarIndex, newCar);
-      this.dataService.storeCars();
     } else {
       this.carsService.addCar(newCar);
-      this.dataService.storeCars();
     }
 
     this.editMode = false;
@@ -173,5 +188,15 @@ export class CarsComponent implements OnInit {
     console.log(newCar);
     form.reset();
     
+  }
+
+  cancelEdit() {
+    this.editMode = false;
+    this.addCarForm.reset();    
+  }
+
+  ngOnDestroy() {
+    this.subscriptionGetCars.unsubscribe();
+    this.subscriptionEdit.unsubscribe();
   }
 }
