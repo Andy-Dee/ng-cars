@@ -1,3 +1,12 @@
 .table-profile td:nth-child(2) {
     text-align: left;
 }
+
+.table-profile input.form-control {
+    font-size: 15px;
+    padding-top: .45rem;
+}
+
+.table-profile .btn {
+    min-width: auto;
+}

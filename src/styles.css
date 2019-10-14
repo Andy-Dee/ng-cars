@@ -23,18 +23,57 @@ a:hover {
     text-decoration: none;
 }
 
-.btn.button-green {
+.form-group {
+    position: relative;
+}
+
+.form-group label {
+    position: absolute;
+    top: .25rem;
+    left: .875rem;
+    font-size: 13px;
+}
+
+.btn {
+    width: auto;
+    height: 45px;
+    min-width: 100px;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.btn.btn-success {
     background-color: #4caf50;
     border-radius: 3px;
     border: none;
     color: white;
-    padding: 2px 25px;
-    margin-top: 10px;
+    padding: 11px 25px;
 }
 
-.btn.button-green:hover {
+.btn.btn-success:hover {
     background-color: #48c54d;
     color: #ffffff;
+}
+
+.btn.btn-danger {
+    border-radius: 3px;
+    border: none;
+    color: white;
+    padding: 11px 25px;
+}
+
+select.form-control,
+input.form-control {
+    border: 2px solid gainsboro;
+    border-radius: 0;
+    height: 45px;
+    font-size: 13px;
+    padding-top: 18px;
+}
+
+select.form-control {
+    -webkit-appearance: none;
+    background: url('../src/assets/img/request-arrow.png') right 10px center no-repeat;
 }
 
 input[type="checkbox"] {

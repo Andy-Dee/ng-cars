@@ -33,7 +33,7 @@
                 <span class="status status-pending" *ngIf="bill.status === 'Pending'">
                     {{ bill.status }}
                 </span>
-                <button class="btn button-green status-paid-btn" *ngIf="bill.status === 'Pending'">Pay</button>
+                <button class="btn btn-success status-paid-btn" *ngIf="bill.status === 'Pending'">Pay</button>
                 <span class="status status-paid" *ngIf="bill.status === 'Paid'">
                     {{ bill.status }}
                 </span>

@@ -27,4 +27,6 @@
 .status-paid-btn {
     display: block;
     margin: 10px auto 0;
+    height: 35px;
+    padding: 6px 25px;
 }
