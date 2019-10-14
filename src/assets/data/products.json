@@ -9,8 +9,7 @@
         "quantity": 1,
         "total": 678,
         "guaranty": true,
-        "invoice": false,
-        "selected": false
+        "invoice": false
     },
     {
         "id": 2,
@@ -23,8 +22,7 @@
         "quantity": 1,
         "total": 478,
         "guaranty": true,
-        "invoice": true,
-        "selected": false
+        "invoice": true
     },
     {
         "id": 3,
@@ -37,8 +35,7 @@
         "quantity": 1,
         "total": 457,
         "guaranty": false,
-        "invoice": false,
-        "selected": false
+        "invoice": false
     },
     {
         "id": 4,
@@ -51,7 +48,19 @@
         "quantity": 1,
         "total": 457,
         "guaranty": false,
-        "invoice": true,
-        "selected": false
+        "invoice": true
+    },
+    {
+        "id": 5,
+        "orderNumber": 56789,
+        "code": "BG450016L-3L04",
+        "name": "Door CHEVROLET 567",
+        "status": "Agreement",
+        "condition": "Used 50%",
+        "price": 257,
+        "quantity": 4,
+        "total": 1028,
+        "guaranty": true,
+        "invoice": true
     }
 ]
