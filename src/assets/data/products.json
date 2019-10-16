@@ -6,7 +6,7 @@
         "status": "Pending",
         "condition": "New",
         "price": 678,
-        "quantity": 1,
+        "quantity": 6,
         "total": 678,
         "guaranty": true,
         "invoice": false
@@ -19,7 +19,7 @@
         "status": "Sent",
         "condition": "Used 50%",
         "price": 478,
-        "quantity": 1,
+        "quantity": 3,
         "total": 478,
         "guaranty": true,
         "invoice": true
@@ -45,7 +45,7 @@
         "status": "Declined",
         "condition": "Used 10%",
         "price": 457,
-        "quantity": 1,
+        "quantity": 2,
         "total": 457,
         "guaranty": false,
         "invoice": true
@@ -58,8 +58,8 @@
         "status": "Agreement",
         "condition": "Used 50%",
         "price": 257,
-        "quantity": 4,
-        "total": 1028,
+        "quantity": 7,
+        "total": null,
         "guaranty": true,
         "invoice": true
     }

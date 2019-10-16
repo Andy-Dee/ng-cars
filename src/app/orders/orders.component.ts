@@ -21,8 +21,7 @@ export class OrdersComponent implements OnInit {
   lengthFilteredSent: any;
   lengthFilteredAgreement: any;
   lengthFilteredPending: any;
-  lengthFilteredDeclined: any;
-  
+  lengthFilteredDeclined: any;  
 
   constructor(
     private dataServive: DataService
@@ -43,6 +42,15 @@ export class OrdersComponent implements OnInit {
       error => this.errorMessage = <any>error
     );
   }
+  
+  checkedOrder(product: Product) {
+    if (this.ordersChecked.find(x => x == product)) {
+      this.ordersChecked.splice(this.ordersChecked.indexOf(product), 1);
+    } else {
+      this.ordersChecked.push(product);
+    }
+    console.log(this.ordersChecked);
+  }
   // Another possible option
   // checkedOrder(id: number, event: Event) {
   //   if (event) {
@@ -55,14 +63,6 @@ export class OrdersComponent implements OnInit {
   //   }    
   //   console.log(this.ordersChecked);
   // }
-  checkedOrder(product: Product) {
-    if (this.ordersChecked.find(x => x == product)) {
-      this.ordersChecked.splice(this.ordersChecked.indexOf(product), 1);
-    } else {
-      this.ordersChecked.push(product);
-    }
-    console.log(this.ordersChecked);
-  }
 
   deleteOrdersChecked() {
     for (this.i = 0; this.i < this.ordersChecked.length; this.i++) {

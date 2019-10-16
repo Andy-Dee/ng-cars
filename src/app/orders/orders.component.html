@@ -22,7 +22,7 @@
             <th scope="col">Remove</th>
         </tr>
     </thead>
-    <tbody *ngFor="let product of products; index as i">
+    <tbody *ngFor="let product of products">
         <tr>
             <td> {{ product.orderNumber }} </td>
             <td>
@@ -53,8 +53,10 @@
                 <div *ngIf="product.condition === 'Used 50%'" class="label label-stock-50">{{ product.condition }}</div>
             </td>
             <td> {{ product.price | currency }} </td>
-            <td> {{ product.quantity }} </td>
-            <td> {{ product.total | currency }} </td>
+            <td>
+                <input type="number" class="order-quantity" [(ngModel)]="product.quantity" [value]="product.quantity">
+            </td>
+            <td> {{ product.price * product.quantity | currency }} </td>
             <td>
                 <div *ngIf="product.guaranty === true" class="guaranty-true"></div>
                 <div *ngIf="product.guaranty === false" class="guaranty-false"></div>
