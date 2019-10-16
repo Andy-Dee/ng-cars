@@ -96,11 +96,6 @@ export class OrdersComponent implements OnInit {
     if (filterData === 'All') {
       this.products = this.cacheProducts;
     }
-    this.lengthAllProductsArray = this.products.length;
-    this.lengthFilteredSent = this.products.filter((product) => product.status == 'Sent').length;
-    this.lengthFilteredAgreement = this.products.filter((product) => product.status == 'Agreement').length;
-    this.lengthFilteredPending = this.products.filter((product) => product.status == 'Pending').length;
-    this.lengthFilteredDeclined = this.products.filter((product) => product.status == 'Declined').length;
   }
 
 }
