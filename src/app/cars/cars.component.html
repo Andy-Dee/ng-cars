@@ -1,10 +1,10 @@
 <h2 class="tab-title mb-3">My cars</h2>
 <div class="row mb-3">
     <div class="col-xs-12 col-sm-4">
-        <a href="" data-toggle="collapse" data-target="#add-car" class="add-car-btn d-block mb-3" aria-expanded="true">
+        <button type="button" class="add-car-btn btn btn-link mb-3" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="add-car">
             <img src="../../assets/img/add-car-little.png" alt="Add car">
-        </a>
-        <div id="add-car" class="fade add-car-wrap collapse show mt-4" aria-expanded="true">
+        </button>
+        <div id="add-car" class="fade add-car-wrap mt-4" [ngClass]="isCollapsed ? 'show' : ''" [ngbCollapse]="!isCollapsed">
             <form [formGroup]="addCarForm" (ngSubmit)="onSubmit(addCarForm)" novalidate>
                 <div class="form-group">
                     <label for="brand">Brand</label>

@@ -29,6 +29,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import * as firebase  from 'firebase/app';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
@@ -59,7 +60,8 @@ firebase.initializeApp(environment.firebaseConfig);
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    NgbModule
 
   ],
   providers: [

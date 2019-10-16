@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener } from '@angular/core';
 import { Car } from '../shared/car.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DataService } from '../core/data.service';
@@ -36,11 +36,15 @@ export class CarsComponent implements OnInit, OnDestroy {
   subscriptionGetCars: Subscription;
   editMode = false;
 
+  isCollapsed = false;
+
   constructor(
     private dataService: DataService,
     private carsService: CarsService,
     private db: AngularFirestore 
      ) {}
+
+  // @HostListener('window:scroll', [])
 
   ngOnInit() {
     this.initForm();
@@ -67,7 +71,7 @@ export class CarsComponent implements OnInit, OnDestroy {
     this.subscriptionEdit = this.carsService.startedEditing
       .subscribe(
         (id: any) => {
-          this.editMode = true;
+          this.editMode = true;                    
           this.editedCarIndex = id;   
           this.editedCar = this.getCar(id);          
           console.log(this.editedCar);
@@ -77,7 +81,9 @@ export class CarsComponent implements OnInit, OnDestroy {
             carModification: this.editedCar.modification,
             carYear: this.editedCar.year,
             carVin: this.editedCar.vin,
-          })
+          });
+          this.isCollapsed = true;
+          //this.scrollToTop();
         }
       );
   }
@@ -185,6 +191,9 @@ export class CarsComponent implements OnInit, OnDestroy {
 
     this.editMode = false;
 
+    this.isCollapsed = false;
+    console.log(this.isCollapsed);
+
     console.log(newCar);
     form.reset();
     
@@ -192,8 +201,19 @@ export class CarsComponent implements OnInit, OnDestroy {
 
   cancelEdit() {
     this.editMode = false;
+    this.isCollapsed = false;
     this.addCarForm.reset();    
   }
+
+  // scrollToTop() {
+  //   (function smoothscroll() {
+  //     let currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+  //       if (currentScroll > 0) {
+  //         window.requestAnimationFrame(smoothscroll);
+  //         window.scrollTo(0, currentScroll - (currentScroll / 5));
+  //       }
+  //   }) ();
+  // }
 
   ngOnDestroy() {
     this.subscriptionGetCars.unsubscribe();
