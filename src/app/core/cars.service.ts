@@ -31,8 +31,11 @@ export class CarsService {
             }
         )
 
-        this.carsCollection = db.collection<Car>('store-cars-' + this.userId);
-        this.cars$ = db.collection('store-cars-' + this.userId)
+        this.carsCollection = db.collection<Car>('store-cars-' + this.userId, ref => ref.orderBy('date'));
+        this.cars$ = db.collection(
+                        'store-cars-' + this.userId,
+                        ref => ref.orderBy('date')
+                        )
                       .snapshotChanges()
                       .pipe(
                         map(

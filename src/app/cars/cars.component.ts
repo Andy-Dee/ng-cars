@@ -7,6 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import { CarsService } from '../core/cars.service';
 import { formatDate } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/firestore';
+import * as firebase  from 'firebase/app';
 
 @Component({
   selector: 'app-cars',
@@ -170,7 +171,8 @@ export class CarsComponent implements OnInit, OnDestroy {
   
   onSubmit(form: FormGroup) {
     const value = form.value;
-    const carDate = formatDate(new Date(), 'yyyy.MM.dd', 'en');
+    //const carDate = formatDate(new Date(), 'yyyy.MM.dd', 'en');
+    const carDate = firebase.firestore.FieldValue.serverTimestamp()
     const carId = this.db.createId();
     const carImage = this.carImage.nativeElement.className;
     const newCar = new Car(

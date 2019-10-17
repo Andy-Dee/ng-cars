@@ -1,7 +1,7 @@
 export class Car {
     constructor(
         public id: string,
-        public date: string,
+        public date: any,
         public brand: string,
         public model: string,
         public modification: string,
