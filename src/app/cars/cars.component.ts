@@ -37,14 +37,13 @@ export class CarsComponent implements OnInit, OnDestroy {
   editMode = false;
 
   isCollapsed = false;
+  @ViewChild('carForm', {static: false}) carForm: ElementRef;
 
   constructor(
     private dataService: DataService,
     private carsService: CarsService,
     private db: AngularFirestore 
      ) {}
-
-  // @HostListener('window:scroll', [])
 
   ngOnInit() {
     this.initForm();
@@ -83,7 +82,7 @@ export class CarsComponent implements OnInit, OnDestroy {
             carVin: this.editedCar.vin,
           });
           this.isCollapsed = true;
-          //this.scrollToTop();
+          this.scrollIntoView();
         }
       );
   }
@@ -205,15 +204,10 @@ export class CarsComponent implements OnInit, OnDestroy {
     this.addCarForm.reset();    
   }
 
-  // scrollToTop() {
-  //   (function smoothscroll() {
-  //     let currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
-  //       if (currentScroll > 0) {
-  //         window.requestAnimationFrame(smoothscroll);
-  //         window.scrollTo(0, currentScroll - (currentScroll / 5));
-  //       }
-  //   }) ();
-  // }
+  scrollIntoView() {
+    const targetEl = this.carForm.nativeElement;
+    targetEl.scrollIntoView({behavior: 'smooth'});
+  }
 
   ngOnDestroy() {
     this.subscriptionGetCars.unsubscribe();
