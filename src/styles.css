@@ -5,6 +5,12 @@
     font-family: 'Ubuntu', sans-serif;
 }
 
+router-outlet~* {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
 p {
     font-size: 15px;
 }
