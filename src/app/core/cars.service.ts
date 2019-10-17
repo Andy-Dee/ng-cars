@@ -31,10 +31,10 @@ export class CarsService {
             }
         )
 
-        this.carsCollection = db.collection<Car>('store-cars-' + this.userId, ref => ref.orderBy('date'));
+        this.carsCollection = db.collection<Car>('store-cars-' + this.userId, ref => ref.orderBy('date', 'desc'));
         this.cars$ = db.collection(
                         'store-cars-' + this.userId,
-                        ref => ref.orderBy('date')
+                        ref => ref.orderBy('date', 'desc')
                         )
                       .snapshotChanges()
                       .pipe(
@@ -55,7 +55,7 @@ export class CarsService {
     getCars() {
         const userId = firebase.auth().currentUser.uid;
         console.log(userId);
-        return this.db.collection('store-cars-' + userId).snapshotChanges()
+        return this.db.collection('store-cars-' + userId, ref =>ref.orderBy('date', 'desc')).snapshotChanges()
     }
 
     addCar(car: Car) {
