@@ -37,6 +37,7 @@ export class CarsComponent implements OnInit, OnDestroy {
   editMode = false;
 
   isCollapsed = false;
+  isLoading = true;
   @ViewChild('carForm', {static: false}) carForm: ElementRef;
 
   constructor(
@@ -56,6 +57,7 @@ export class CarsComponent implements OnInit, OnDestroy {
     
     this.subscriptionGetCars = this.carsService.getCars().subscribe(
       action => {
+        this.isLoading = false;
         this.cars = action.map(
           item => {
             return {

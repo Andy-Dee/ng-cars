@@ -6,7 +6,10 @@
     <li class="pr-3"><a (click)="filterByClick($event)">Pending</a> (<span>{{ lengthFilteredPending }}</span>)</li>
     <li class="pr-3"><a (click)="filterByClick($event)">Declined</a> (<span>{{ lengthFilteredDeclined }}</span>)</li>
 </ul>
-<table class="table table-striped table-bordered">
+<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center">
+    <app-spinner></app-spinner>
+</div>
+<table *ngIf="!isLoading" class="table table-striped table-bordered">
     <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>

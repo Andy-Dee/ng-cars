@@ -48,4 +48,7 @@
         </div>
     </div>
 </div>
-<app-car-list></app-car-list>
+<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center">
+    <app-spinner></app-spinner>
+</div>
+<app-car-list *ngIf="!isLoading"></app-car-list>

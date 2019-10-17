@@ -21,7 +21,8 @@ export class OrdersComponent implements OnInit {
   lengthFilteredSent: any;
   lengthFilteredAgreement: any;
   lengthFilteredPending: any;
-  lengthFilteredDeclined: any;  
+  lengthFilteredDeclined: any; 
+  isLoading = true; 
 
   constructor(
     private dataServive: DataService
@@ -38,6 +39,7 @@ export class OrdersComponent implements OnInit {
         this.lengthFilteredAgreement = this.products.filter((product) => product.status == 'Agreement').length;
         this.lengthFilteredPending = this.products.filter((product) => product.status == 'Pending').length;
         this.lengthFilteredDeclined = this.products.filter((product) => product.status == 'Declined').length;
+        this.isLoading = false;
       },
       error => this.errorMessage = <any>error
     );
