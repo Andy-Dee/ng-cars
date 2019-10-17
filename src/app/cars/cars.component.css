@@ -1,3 +1,19 @@
 .add-car-btn {
     height: auto;
 }
+
+.collapse,
+.collapse.show {
+    display: block !important;
+    transition: all .3s ease-in-out;
+}
+
+.collapse {
+    opacity: 0;
+    height: 0;
+}
+
+.collapse.show {
+    opacity: 1;
+    height: 100%;
+}
