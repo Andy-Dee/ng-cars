@@ -5,7 +5,6 @@ import { DataService } from '../core/data.service';
 import { CarsList } from '../shared/carsList.model';
 import { Observable, Subscription } from 'rxjs';
 import { CarsService } from '../core/cars.service';
-import { formatDate } from '@angular/common';
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase  from 'firebase/app';
 
@@ -73,14 +72,15 @@ export class CarsComponent implements OnInit, OnDestroy {
     this.subscriptionEdit = this.carsService.startedEditing
       .subscribe(
         (id: any) => {
+          this.addCarForm.reset();
           this.editMode = true;                    
           this.editedCarIndex = id;   
           this.editedCar = this.getCar(id);          
           console.log(this.editedCar);
           this.addCarForm.setValue({
-            carBrand: this.editedCar.brand,
-            carModel: this.editedCar.model,
-            carModification: this.editedCar.modification,
+            carBrand: '',
+            carModel: '',
+            carModification: '',
             carYear: this.editedCar.year,
             carVin: this.editedCar.vin,
           });
@@ -171,7 +171,6 @@ export class CarsComponent implements OnInit, OnDestroy {
   
   onSubmit(form: FormGroup) {
     const value = form.value;
-    //const carDate = formatDate(new Date(), 'yyyy.MM.dd', 'en');
     const carDate = firebase.firestore.FieldValue.serverTimestamp()
     const carId = this.db.createId();
     const carImage = this.carImage.nativeElement.className;
