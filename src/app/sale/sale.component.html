@@ -1,6 +1,8 @@
 <h2 class="tab-title mb-3">On sale</h2>
-
-<table class="table table-borderless table-sales">
+<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center">
+    <app-spinner></app-spinner>
+</div>
+<table *ngIf="!isLoading" class="table table-borderless table-sales">
     <thead>
         <tr>
             <th>Code</th>

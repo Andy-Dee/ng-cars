@@ -14,13 +14,17 @@ export class SaleComponent implements OnInit {
   errorMessage: string;
   observableSales: Observable<Sale[]>;
   salesChanged = new Subject<Sale[]>();
+  isLoading = true;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.observableSales = this.dataService.fetchSales();
     this.observableSales.subscribe(
-      sales => this.sales = sales,
+      sales => {
+        this.sales = sales;
+        this.isLoading = false;
+      },
       error => this.errorMessage = error
     )
   }

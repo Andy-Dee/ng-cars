@@ -14,13 +14,17 @@ export class BillsComponent implements OnInit {
   errorMessage: string;
   observableBill: Observable<Bill[]>;
   billsChanged = new Subject<Bill[]>();
+  isLoading = true;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.observableBill = this.dataService.fetchBills();
     this.observableBill.subscribe(
-      bills => this.bills = bills,
+      bills => {
+        this.bills = bills;
+        this.isLoading = false;      
+      },
       error => this.errorMessage = error
     )
   }

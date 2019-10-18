@@ -13,13 +13,17 @@ export class BalanceComponent implements OnInit {
   balance: Balance;
   errorMessage: string;
   observableBalance: Observable<Balance[]>;
+  isLoading = true;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.observableBalance = this.dataService.fetchBalances();
     this.observableBalance.subscribe(
-      balances => this.balances = balances,
+      balances => {
+        this.balances = balances;
+        this.isLoading = false;
+      },
       error => this.errorMessage = error
     )
   }
