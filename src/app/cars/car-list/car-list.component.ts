@@ -10,7 +10,10 @@ import { Subscription } from 'rxjs';
 })
 export class CarListComponent implements OnInit, OnDestroy {
   cars: Car[] = [];
-  subscriptionCars: Subscription
+  carsPaginated: Car[] = [];
+  subscriptionCars: Subscription;
+
+  
 
   constructor(
     private carsService: CarsService
@@ -30,6 +33,10 @@ export class CarListComponent implements OnInit, OnDestroy {
       }
     )
   }
+
+  onChangePage(carsPaginated: Array<any>) {
+    this.carsPaginated = carsPaginated;
+}
 
   ngOnDestroy() {
     this.subscriptionCars.unsubscribe();

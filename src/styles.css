@@ -294,3 +294,15 @@ a.delete {
 .alert p {
     margin-bottom: 0;
 }
+
+.pagination li a {
+    cursor: pointer;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #1565c0;
+}
+
+.pagination .page-item.active .page-link:hover {
+    color: #fff;
+}

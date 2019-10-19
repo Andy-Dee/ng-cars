@@ -31,6 +31,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import * as firebase  from 'firebase/app';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 firebase.initializeApp(environment.firebaseConfig);
+import { JwPaginationComponent } from 'jw-angular-pagination';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ firebase.initializeApp(environment.firebaseConfig);
     CarListComponent,
     CarItemComponent,
     AuthComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    JwPaginationComponent
   ],
   imports: [
     BrowserModule,

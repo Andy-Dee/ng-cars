@@ -1,5 +1,10 @@
 <div class="row">
-    <app-car-item *ngFor="let car of cars" [car]="car" class="col-xs-12 col-sm-3">
+    <app-car-item *ngFor="let car of carsPaginated" [car]="car" class="col-xs-12 col-sm-3">
 
     </app-car-item>
+</div>
+<div *ngIf="cars" class="row pt-5 pb-5">
+    <div class="col-12 d-flex justify-content-center">
+        <jw-pagination [items]="cars" [pageSize]="8" (changePage)="onChangePage($event)"></jw-pagination>
+    </div>
 </div>
