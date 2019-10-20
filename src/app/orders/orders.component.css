@@ -8,6 +8,14 @@
     transition: color .3s;
 }
 
+.table-orders tbody tr {
+    opacity: 0.9;
+}
+
+.table-orders tbody tr:hover {
+    opacity: 1;
+}
+
 .order-quantity {
     width: 40px;
     text-align: center;

@@ -291,6 +291,10 @@ a.delete {
     text-align: center;
 }
 
+a.delete:hover {
+    opacity: 0.7;
+}
+
 .alert p {
     margin-bottom: 0;
 }
